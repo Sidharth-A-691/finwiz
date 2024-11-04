@@ -1,0 +1,100 @@
+<h3>Submit a Transaction</h3>
+
+<div class="container1">
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="">Account Number</label>
+            <input
+                type="text"
+                class="form-control"
+                id="accountNumber"
+                name="accountNumber"
+                minlength="9"
+                required
+                placeholder="Enter Account Number"
+                [(ngModel)]="transaction.accountNumber"
+                #id="ngModel"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="">Description</label>
+            <input
+                type="text"
+                class="form-control"
+                id="description"
+                placeholder="Enter Description"
+                [(ngModel)]="transaction.description"
+                name="description"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input
+                type="number"
+                class="form-control"
+                id="amount"
+                placeholder="Enter Amount"
+                [(ngModel)]="transaction.amount"
+                name="amount"
+            />
+        </div>
+
+        <div class="form-group">
+            <label for="transactionType">Transaction Type</label>
+            <select
+                class="form-control"
+                id="transactionType"
+                [(ngModel)]="transaction.transactionType"
+                name="transactionType"
+            >
+                <option value="" disabled selected>Select Transaction Type</option>
+                <option value="DEPOSIT">Deposit</option>
+                <option value="WITHDRAW">Withdraw</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="categoryType">Category</label>
+            <select
+                class="form-control"
+                id="categoryType"
+                [(ngModel)]="transaction.categoryType"
+                name="categoryType"
+            >
+                <option value="" disabled selected>Choose Category</option>
+                <option value="DINING">Dining</option>
+                <option value="GROCERIES">Groceries</option>
+                <option value="TRANSIT">Transit</option>
+                <option value="BILLS_AND_FEES">Bills and Fees</option>
+            </select>
+        </div>
+        
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+
+<h4>Transaction List</h4>
+<table class="table table-dark table-striped-columns">
+    <thead>
+        <tr>
+            <th>Account Number </th>
+            <th>Description</th>
+            <th>Amount</th>
+            <th>Transaction Type</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let transaction of transactions">
+            <td>{{ transaction.accountNumber }}</td>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.transactionType }}</td>
+            <td>{{ transaction.categoryType }}</td>    
+        </tr>
+    </tbody>
+</table>
