@@ -1,0 +1,51 @@
+<div class="goal-container max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-semibold mb-4">Goal Management</h2>
+  
+    <form (ngSubmit)="onSubmit()" class="mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="goalName" class="label">Goal Name:</label>
+          <input type="text" [(ngModel)]="goal.goalName" name="goalName" required class="form-field" />
+        </div>
+        <div>
+          <label for="value" class="label">Value:</label>
+          <input type="number" [(ngModel)]="goal.value" name="value" required class="form-field" />
+        </div>
+        <div>
+          <label for="description" class="label">Description:</label>
+          <input type="text" [(ngModel)]="goal.description" name="description" required class="form-field" />
+        </div>
+        <div>
+          <label for="durationInMonths" class="label">Duration (Months):</label>
+          <input type="number" [(ngModel)]="goal.durationInMonths" name="durationInMonths" required class="form-field" />
+        </div>
+      </div>
+      <button type="submit" class="button w-full mt-4">Save Goal</button>
+    </form>
+  
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+      <div *ngFor="let goal of goals; let i = index" class="bg-white shadow-lg rounded-lg p-6 flex flex-col">
+        <!-- Goal Header -->
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold text-gray-800">{{ goal.goalName }}</h3>
+          <span class="bg-gray-200 text-gray-700 py-1 px-3 rounded-full text-sm">{{ i + 1 }}</span>
+        </div>
+        
+        <!-- Goal Body -->
+        <div class="mb-4">
+          <p><strong class="font-medium text-gray-600">Value:</strong> {{ goal.value }}</p>
+          <p><strong class="font-medium text-gray-600">Description:</strong> {{ goal.description }}</p>
+          <p><strong class="font-medium text-gray-600">Start Date:</strong> {{ goal.startDate | date }}</p>
+          <p><strong class="font-medium text-gray-600">Duration:</strong> {{ goal.durationInMonths }} Months</p>
+          <p><strong class="font-medium text-gray-600">Days Left:</strong> {{ calculateDaysLeft(goal) }} days</p>
+        </div>
+    
+        <!-- Goal Footer -->
+        <div class="mt-auto flex justify-end">
+          <button (click)="confirmDelete(goal.id)" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 focus:outline-none">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+    
