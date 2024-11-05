@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GoalService } from '../goal.service';
-import { GoalDto } from '../goal.dto';
+import { GoalService } from '../services/goal/goal.service';
+import { GoalDto } from '../model/goal.dto';
 
 @Component({
   selector: 'app-goal',
