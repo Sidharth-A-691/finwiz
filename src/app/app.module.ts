@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { BankingComponent } from './banking/banking.component';
 import { GoalComponent } from './goal/goal.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
+import { NewsComponent } from './news/news.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BankingComponent,
     GoalComponent,
-    SuggestionComponent
+    SuggestionComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
