@@ -8,12 +8,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BankingComponent } from './banking/banking.component';
 import { GoalComponent } from './goal/goal.component';
+import { SuggestionComponent } from './suggestion/suggestion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BankingComponent,
-    GoalComponent
+    GoalComponent,
+    SuggestionComponent
   ],
   imports: [
     BrowserModule,
