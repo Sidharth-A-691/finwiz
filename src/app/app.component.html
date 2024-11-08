@@ -1,7 +1,52 @@
-<!-- <app-banking></app-banking> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>finWiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Prevent scrolling */
+        body {
+            overflow: hidden; /* Prevents scrolling */
+            margin: 0; /* Remove default margin */
+            height: 100vh; /* Full viewport height */
+        }
+        .container {
+            height: 100%; /* Full height for the container */
+        }
+    </style>
+</head>
+<body>
+    <nav class="bg-indigo-600 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-white text-xl font-bold">finWiz</a>
 
-<!-- <app-goal></app-goal> -->
+            <button class="text-white lg:hidden" type="button">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
 
-<!-- <app-suggestion></app-suggestion> -->
+            <div class="hidden lg:flex space-x-6 items-center">
+                <!-- Navigation Links with Active Class -->
+                <a>Home</a>
+                <a>Transactions</a>
+                <a>Budgets</a>
+                <a>Goals</a>
+                <a>AI Suggestions</a>
 
-<app-news> </app-news>
+                <!-- Welcome Message and Logout Button -->
+                <span class="text-gray-300">Welcome, User</span>
+                <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-400">Log-Off</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- <app-banking></app-banking> -->
+    <!-- <app-goal></app-goal> -->
+    <!-- <app-news> </app-news> -->
+    <app-suggestion></app-suggestion>
+
+</body>
+</html>

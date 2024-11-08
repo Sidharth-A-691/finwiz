@@ -105,23 +105,34 @@ export class SuggestionService {
       - Ensure that the sum of all budget categories (Food, Entertainment, Housing, Transportation) does not exceed the total expenses or income.
   
       Format the response like this:
-      <strong>Suggested Budget Breakdown</strong>
+      
   
-      <ul>
-        <li><strong>Total Income:</strong> $${income.toFixed(2)}</li>
-        <li><strong>Total Expenses:</strong> $${expenses.toFixed(2)}</li>
-        <br />
-        <li><strong>Suggested Budget:</strong>
-          <ul>
-            <li><em>Budget for Food:</em> $[amount]</li>
-            <li><em>Budget for Entertainment:</em> $[amount]</li>
-            <li><em>Budget for Housing:</em> $[amount]</li>
-            <li><em>Budget for Transportation:</em> $[amount]</li>
-          </ul>
+        <div class="flex justify-center items-center space-x-4">
+          <p>
+            Total Income: <strong class="font-bold">$${income.toFixed(2)}</strong>
+          </p>
+          <p>
+            Total Expenses: <strong class="font-bold">$${expenses.toFixed(2)}</strong>
+          </p>
+        </div>
+      <br />
+      <ul class=" grid-cols-2 gap-4 flex justify-center items-center space-x-4">
+        <li>
+          <em>Budget for Food:$[foodAmount]
+        </li>
+        <li>
+          <em>Budget for Entertainment:$[entertainmentAmount]
+        </li>
+        <li>
+          <em>Budget for Housing:$[housingAmount]
+        </li>
+        <li>
+          <em>Budget for Transportation:$[transportationAmount]
         </li>
       </ul>
-      <h4><strong>Explanation</strong></h4>
-      [Brief explanation of how the suggested budget amounts were calculated based on the current spending.]
+      <br />
+
+      [Brief one small paragraph explanation of how the suggested budget amounts were calculated based on the current spending.]
     `;
   }
   // Send the parsed budget to the backend to be saved

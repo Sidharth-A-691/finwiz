@@ -2,12 +2,39 @@ import { Component } from '@angular/core';
 import { SuggestionService } from '../services/suggestion/suggestion.service';
 import { Transaction } from '../model/Transaction';
 import { Budget } from '../model/Budget';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-suggestion',
   templateUrl: './suggestion.component.html',
-  styleUrls: ['./suggestion.component.css']
+  styleUrls: ['./suggestion.component.css'],
+  animations: [
+    trigger('slideIn', [
+      transition(':enter', [
+        style({ transform: 'translateY(100%)', opacity: 0 }),  // Content starts slightly down and invisible
+        animate('0.5ms', style({ transform: 'translateY(0)', opacity: 1 }))  // Content slides up
+      ]),
+      transition(':leave', [
+        animate('0.5ms', style({ transform: 'translateY(100%)', opacity: 0 }))  // Fade out while sliding down
+      ])
+    ]),
+
+    // Slide up animation for the background
+    trigger('slideUp', [
+      transition(':enter', [
+        style({ backgroundPosition: 'center 20%' }),  // Start with background position 20% down
+        animate('0.8s ease-out', style({ backgroundPosition: 'center 50%' }))  // Slide up to its final position
+      ])
+    ]),
+    trigger('moveUp', [
+      transition(':enter', [
+        style({ transform: 'translateY(100%)' }),  // Start with content hidden below
+        animate('750ms ease-out', style({ transform: 'translateY(0)' }))  // Slide up to position
+      ])
+    ])
+  ]
 })
+
 export class SuggestionComponent {
   
   transactions: any[] = [ {
@@ -86,7 +113,10 @@ export class SuggestionComponent {
     "transactionDate": "2024-11-05",
     "transactionType": "WITHDRAW",
     "categoryType": "ENTERTAINMENT",
-}];
+}
+    // Your transaction data here
+  ];
+  
   budgetSuggestion: string = '';  // Store the AI-generated budget suggestion
   loading: boolean = false;
   errorMessage: string = '';
@@ -94,12 +124,6 @@ export class SuggestionComponent {
   currentBudget: Budget | null = null; 
 
   constructor(private suggestionService: SuggestionService) {}
-
-  // loadTransactions(): void {
-  //   this.suggestionService.getTransactions().subscribe((data: Transaction[]) => {
-  //     this.transactions = data;
-  //   });
-  // }
 
   // Method triggered when user asks for budget suggestion
   async onGetBudgetSuggestion(): Promise<void> {
@@ -110,11 +134,29 @@ export class SuggestionComponent {
     try {
       // Get the budget suggestion based on the transactions
       const suggestion = await this.suggestionService.generateBudgetSuggestion(this.transactions);
-      // Store the suggestion to display in the UI
-     // this.currentBudget = this.suggestionService.parseAiGeneratedBudgetResponse(suggestion, 1); 
       this.budgetSuggestion = suggestion;
+      // You may want to parse the suggestion into a Budget object
+      // this.currentBudget = this.suggestionService.parseAiGeneratedBudgetResponse(suggestion, 1); 
     } catch (error) {
       this.errorMessage = 'An error occurred while generating the budget suggestion.';
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  // Method to regenerate budget suggestion when button is clicked
+  async onRegenerateBudgetSuggestion(): Promise<void> {
+    this.loading = true;
+    this.errorMessage = '';
+    
+    try {
+      // Regenerate the budget suggestion based on the transactions
+      const regeneratedSuggestion = await this.suggestionService.generateBudgetSuggestion(this.transactions);
+      this.budgetSuggestion = regeneratedSuggestion;
+      // If you parse the suggestion into a Budget object, you could do that here
+      // this.currentBudget = this.suggestionService.parseAiGeneratedBudgetResponse(regeneratedSuggestion, 1);
+    } catch (error) {
+      this.errorMessage = 'An error occurred while regenerating the budget suggestion.';
     } finally {
       this.loading = false;
     }
@@ -149,12 +191,15 @@ export class SuggestionComponent {
       this.budgetSuggestion = '';
     }
   }
+
   // Helper function to extract the budget value from the suggestion string
   extractBudgetValue(category: string): number {
     const regex = new RegExp(`Budget for ${category}:\\s*\\$([\\d,\\.]+)`);
     const match = this.budgetSuggestion.match(regex);
     return match ? parseFloat(match[1].replace(',', '')) : 0;
   }
+
+  // Helper function to format the response text (bold, italic, line breaks, etc.)
   formatResponse(response: string): string {
     response = response.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
     response = response.replace(/\*(.*?)\*/g, '<em>$1</em>'); // Italic

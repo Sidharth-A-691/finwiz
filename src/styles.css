@@ -3,3 +3,17 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer utilities {
+    .bg-about-img {
+      background-image: url('/assets/about-img.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+    .bg-stars-img {
+        background-image: url('assets/stars.jpg');
+        background-size: cover;
+        background-position: center;
+      }
+  }
+  

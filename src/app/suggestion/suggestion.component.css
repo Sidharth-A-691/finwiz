@@ -1,0 +1,31 @@
+/* Add transition styles for smooth animations */
+.fadeOut {
+    transition: opacity 0.5s ease-out;
+  }
+  
+  .slideUp {
+    transition: transform 0.5s ease-out;
+  }
+  
+  /* Ensure the bottom content has a proper min-height so it doesn’t shift around */
+  .bottom-content {
+    min-height: 300px;  /* Adjust based on your content size */
+    transition: min-height 0.5s ease-out;
+  }
+  
+  /* You can adjust your z-index for better stacking context */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5); /* Adjust as per your design */
+    z-index: 0;
+  }
+  
+  .content {
+    position: relative;
+    z-index: 10; /* Ensure content is above the overlay */
+  }
+  

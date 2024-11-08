@@ -10,6 +10,8 @@ import { BankingComponent } from './banking/banking.component';
 import { GoalComponent } from './goal/goal.component';
 import { SuggestionComponent } from './suggestion/suggestion.component';
 import { NewsComponent } from './news/news.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { NewsComponent } from './news/news.component';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
